@@ -92,7 +92,7 @@ exampleOf(description: "distinctUntilChanged"){
 exampleOf(description: "takeWhile"){
     let disposeBag = DisposeBag()
     let numbers = Observable.of(1, 2, 3, 4, 3, 2, 1)
-   
+    
     numbers.takeWhile{ $0 < 4 }
         .subscribe(onNext: {
             print($0)
@@ -103,6 +103,21 @@ exampleOf(description: "takeWhile"){
 
 
 
+
+
+exampleOf(description: "startWith"){
+    let disposeBag = DisposeBag()
+    
+    Observable.of("1", "2", "3")
+        .startWith("A")
+        .startWith("B")
+        .startWith("C")
+        .subscribe(onNext: {
+            print($0)
+        })
+        .addDisposableTo(disposeBag)
+    
+}
 
 
 
