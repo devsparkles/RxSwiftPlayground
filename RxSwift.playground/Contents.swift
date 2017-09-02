@@ -4,6 +4,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 import RxSwift
 import RxCocoa
 
+/*
 exampleOf(description: "just"){
     let observable = Observable.just("Hello, World")
     observable.subscribe { (event: Event<String>) in
@@ -111,12 +112,39 @@ exampleOf(description: "startWith"){
     Observable.of("1", "2", "3")
         .startWith("A")
         .startWith("B")
-        .startWith("C")
+        .startWith("C","D")
         .subscribe(onNext: {
             print($0)
         })
         .addDisposableTo(disposeBag)
     
+}
+*/
+
+exampleOf(description: "merge"){
+    
+    let disposeBag = DisposeBag()
+    
+    let subject1 = PublishSubject<String>()
+    let subject2 = PublishSubject<String>()
+    
+    
+    Observable.of(subject1,subject2)
+    .merge()
+        .subscribe(onNext: {
+            print($0)
+        })
+    
+    
+    subject1.onNext("A")
+    subject1.onNext("B")
+
+    
+    subject2.onNext("1")
+    subject2.onNext("2")
+    
+    subject1.onNext("C")
+    subject2.onNext("3")
 }
 
 
