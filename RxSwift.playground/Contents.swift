@@ -149,16 +149,32 @@ exampleOf(description: "merge"){
 
 
 
+exampleOf(description: "zip") {
+    
+    let disposeBag = DisposeBag()
+    
+    let stringSubject =    PublishSubject<String>()
+    let intSubject =    PublishSubject<Int>()
+    
+    
+    Observable.zip(stringSubject,intSubject) { stringElement, intElement in
+        "\(stringElement) \(intElement)"
+    }
+    .subscribe(onNext: { print($0)})
+  //  .addDisposableTo(disposeBag)
+    
+    
+    stringSubject.onNext("A")
+    stringSubject.onNext("B")
+    
+    intSubject.onNext(1)
+    intSubject.onNext(3)
+    intSubject.onNext(4)
+    
+    
+    stringSubject.onNext("c")
 
-
-
-
-
-
-
-
-
-
+}
 
 
 
