@@ -67,4 +67,22 @@ exampleOf(description: "filter"){
 
 
 
-
+exampleOf(description: "distinctUntilChanged"){
+    let disposeBag = DisposeBag()
+    let searchString = Variable("")
+    
+    
+    searchString.asObservable()
+        .map{$0.lowercased()}
+    .distinctUntilChanged()
+        .subscribe(onNext: {
+            print($0)
+        }).addDisposableTo(disposeBag)
+    
+    searchString.value = "APPLE"
+    searchString.value = "apple"
+    searchString.value = "Banana"
+    searchString.value = "APPLE"
+    
+    
+}
